@@ -1,0 +1,77 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jlleitschuh.gradle.ktlint'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+group = 'com.github.jitpack'
+version = '1.0'
+
+android {
+    namespace 'com.android.squid'
+    compileSdk 30
+
+    defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.aar'])
+    api "androidx.annotation:annotation:1.1.0"
+    api "androidx.appcompat:appcompat:1.2.0"
+    api "androidx.recyclerview:recyclerview:1.2.1"
+    api "androidx.lifecycle:lifecycle-common:2.2.0"
+    api "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    api "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    api "androidx.lifecycle:lifecycle-livedata:2.2.0"
+    api "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    api "androidx.constraintlayout:constraintlayout:2.1.1"
+    api "com.google.dagger:dagger:2.37"
+    kapt "com.google.dagger:dagger-compiler:2.37"
+    api 'com.google.android.material:material:1.4.0'
+    api 'androidx.core:core-ktx:1.6.0'
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1"
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03'
+    api 'io.reactivex.rxjava3:rxjava:3.1.4'
+    api 'io.reactivex.rxjava3:rxandroid:3.0.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.jitpack'
+                artifactId = 'squid'
+                version = '1.0'
+            }
+        }
+    }
+}
