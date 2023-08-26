@@ -28,8 +28,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import mega.log.MLog;
-
 /**
  * <pre>
  *     author: Blankj
@@ -40,6 +38,7 @@ import mega.log.MLog;
  */
 @SuppressWarnings({"checkstyle:ConstantName", "checkstyle:OverloadMethodsDeclarationOrder", "checkstyle:LineLength"})
 public final class ThreadTools {
+    private static final String TAG = ThreadTools.class.getSimpleName();
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
     private static final Map<Integer, Map<Integer, ExecutorService>>
@@ -1400,7 +1399,7 @@ public final class ThreadTools {
         synchronized (sHandlerThreads) {
             HandlerThread thread = sHandlerThreads.get(name);
             if (thread == null || !thread.isAlive()) {
-                MLog.i("Starting HandlerThread:" + name);
+                Log.i(TAG, "Starting HandlerThread:" + name);
                 thread = new HandlerThread(name);
                 thread.start();
                 sHandlerThreads.put(name, thread);

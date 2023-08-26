@@ -1,9 +1,9 @@
 package com.android.squid.mvvm.base
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.android.squid.utils.FragmentUtils
-import mega.log.MLog
 
 abstract class BaseManagerFragmentActivity : BaseActivity() {
     private var mFragments: Array<Fragment?>? = null
@@ -43,7 +43,7 @@ abstract class BaseManagerFragmentActivity : BaseActivity() {
                 val fm = supportFragmentManager
                 val topShow = FragmentUtils.getTopShow(fm)
                 if (toFragment != topShow) {
-                    MLog.d(this.javaClass.simpleName, " Switch page index: $pageIndex")
+                    Log.d(this.javaClass.simpleName, " Switch page index: $pageIndex")
                     if (!toFragment!!.isAdded) {
                         FragmentUtils.add(fm, toFragment, getContainerId())
                     }
@@ -52,9 +52,9 @@ abstract class BaseManagerFragmentActivity : BaseActivity() {
                 }
             }
         } catch (e: IllegalStateException) {
-            MLog.w(" switch page : $e")
+            Log.w(this.javaClass.simpleName, " switch page : $e")
         } catch (e: NullPointerException) {
-            MLog.w(" switch page : $e")
+            Log.w(this.javaClass.simpleName, " switch page : $e")
         }
     }
 
@@ -64,7 +64,7 @@ abstract class BaseManagerFragmentActivity : BaseActivity() {
         if (bundle != null) {
             val index = bundle.getInt(KEY_PAGE_INDEX)
             if (mFragments!![index] !== fragment) {
-                MLog.d(this.javaClass.simpleName, "Restore index:$index")
+                Log.d(this.javaClass.simpleName, "Restore index:$index")
                 mFragments!![index] = fragment
             }
         }

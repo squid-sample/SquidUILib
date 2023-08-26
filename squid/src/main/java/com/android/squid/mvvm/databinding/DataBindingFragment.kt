@@ -1,4 +1,4 @@
-package com.mega.btphone.basic.databinding
+package com.android.squid.mvvm.databinding
 
 import android.content.Context
 import android.os.Bundle
